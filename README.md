@@ -21,7 +21,7 @@ examples/hello-play-pack.js  播放包模板（手写、免构建，装上即返
 ```
 
 **没有**什么：任何平台的取链端点、签名算法、线路优先级、官方包产物、构建与签名流水线。
-那些在私有构建仓里，不随本仓分发——理由见 [HOST-API.md §7](docs/HOST-API.md)。
+那些在 `qt-sources` 构建仓里，不随本仓分发——理由见 [HOST-API.md §7](docs/HOST-API.md)。
 
 ## 快速上手
 
@@ -35,10 +35,10 @@ examples/hello-play-pack.js  播放包模板（手写、免构建，装上即返
 ## 契约演进
 
 契约发版后**只增不改**：新字段一律可选。否则已按旧契约写好的作者包会在新契约下编不过。
-`src/contract.ts` 是私有构建仓那份的逐字镜像，改动流程：
+`src/contract.ts` 是构建仓那份的逐字镜像，改动流程：
 
 ```bash
-# 在私有构建仓里
+# 在 qt-sources 仓里
 pnpm check:sdk   # 校验本仓副本与构建仓无漂移
 pnpm sync:sdk    # 把契约/指南/示例复制到 SDK 仓
 ```
