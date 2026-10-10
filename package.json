@@ -2,15 +2,22 @@
   "name": "qt-sources-sdk",
   "version": "1.0.0",
   "private": true,
-  "description": "青听 QuietMusic 音源包 SDK：宿主注入契约（host API）、包格式、类型镜像与作者模板",
+  "type": "module",
+  "description": "轻听 QuietMusic 音源包 SDK：宿主注入契约（host API）、包格式、洛雪源打包器与命令行工具",
   "license": "MIT",
   "types": "src/index.ts",
+  "bin": {
+    "qt-build-lx-pack": "scripts/build-lx-pack.mjs"
+  },
   "files": [
     "src",
     "docs",
-    "examples"
+    "examples",
+    "scripts"
   ],
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:lx": "node scripts/build-lx-pack.mjs",
+    "test:lx": "node scripts/test-lx-packer.mjs"
   }
 }

@@ -102,7 +102,7 @@ export type QtPlayPackFactory = (host: QtHost) => QtPlayPackApi;
 
 /** 首行 `__QT_PACK__` 自述头的 JSON 形状。 */
 export interface QtPackHeader {
-  /** 目前只有 "play"（播放音源包）；元数据包由官方在线分发，不接受第三方安装。 */
+  /** 目前只有 "play"（播放音源包）；meta 数据包仅官方保留 id 分发。 */
   kind: "play";
   /** 包 id，全局唯一，英文小写 + 连字符。 */
   id: string;
