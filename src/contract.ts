@@ -144,13 +144,41 @@ export interface ContractAlbum {
   picUrl: string;
 }
 
-/** 榜单 */
+/** 音频节目/有声专辑（兼容旧歌单/榜单模型） */
+export interface ContractAudioProgram {
+  id: string;
+  platform: Source;
+  name: string;
+  artist: string;
+  picUrl: string;
+  description: string | null;
+  chapterCount: number;
+}
+
+/** 榜单；contentType 仅为新增能力提示，老宿主可忽略。 */
 export interface ContractChart {
   id: string;
   platform: Source;
   name: string;
   picUrl: string;
   description: string | null;
+  contentType?: "music" | "programs";
+}
+
+/** 单页节目章节（page 从 1 起，size 是实际请求页大小）。 */
+export interface ContractAlbumChapters {
+  id: string;
+  tracks: MusicInfo[];
+  page: number;
+  size: number;
+  total: number;
+  hasMore: boolean;
+}
+
+/** 音频节目详情；tracks 里的章节仍使用 MusicInfo，以便直接播放。 */
+export interface ContractAudioProgramDetail extends ContractAudioProgram {
+  tracks: MusicInfo[];
+  hasMore: boolean;
 }
 
 /**
