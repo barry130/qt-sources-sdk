@@ -40,6 +40,22 @@ interface QtHost {
 - 不要依赖 `content-type` 判断是否为 JSON——上游普遍用 `text/plain`、`x-javascript`、
   甚至 `text/html` 携带 JSON 体。
 
+### 登录态注入（你的 request 可能带用户 Cookie）
+
+宿主支持「音源账号登录」（B 站/网易等**官方扫码**，凭据只存在宿主本地）。用户开启
+「播放请求用登录态」后，注入到你工厂的 `env.request` 会在匹配已登录音源官方域
+（如 `bilibili.com`、`music.163.com` 及其子域）的请求上自动附加用户 Cookie——
+仅当请求**未自带** `Cookie` 头时注入，你自己显式设置的头永远优先。
+
+对包作者的要求只有三条：
+
+- **不要假设请求是匿名的**：同一端点，登录前后可能返回不同的音质/内容
+  （如 B 站大会员的 hires/dolby 档）；
+- **不要外泄**：不要把 `Cookie` / `set-cookie` 头写进日志、返回体或上报；
+- **不要自建登录**：扫码与会话管理由宿主和官方元数据包完成，包内做不了也不该做。
+
+用户没开开关、或当前源未登录时，`env.request` 就是纯匿名出口，行为与旧宿主完全一致。
+
 包内**禁止**自己发网络请求（`fetch`、`XMLHttpRequest`、`WebSocket`、`uni.request`、
 原生 socket、`java.net.*`、`okhttp` 等）。原因见 §5。
 
